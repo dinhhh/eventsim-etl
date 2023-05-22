@@ -1,3 +1,7 @@
+Simple ETL for storing events generated from [eventsim](https://github.com/dinhhh/eventsim) into hadoop
+
+# Start service guide
+
 - Change directory to hadoop/sbin
 ```agsl
 ./start-dfs.sh
