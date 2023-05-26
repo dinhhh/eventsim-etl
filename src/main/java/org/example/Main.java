@@ -29,6 +29,8 @@ import java.util.List;
 import java.util.Properties;
 
 public class Main {
+    public static final String HDFS_URL = "hdfs://localhost:9000";
+
     public static void main(String[] args) {
         SparkSession sparkSession = SparkSession.builder()
                 .appName("Event sim ETL")
@@ -70,7 +72,7 @@ public class Main {
     private static void writeToJson(String content) {
         try {
             Configuration configuration = new Configuration();
-            configuration.set("fs.defaultFS", "hdfs://localhost:9000");
+            configuration.set("fs.defaultFS", HDFS_URL);
             configuration.set("fs.hdfs.impl", DistributedFileSystem.class.getName());
             configuration.set("dfs.client.block.write.replace-datanode-on-failure.policy", "NEVER");
             configuration.set("dfs.client.block.write.replace-datanode-on-failure.enable", "true");
@@ -103,7 +105,7 @@ public class Main {
 
     private static void writeToParquet(SparkSession sparkSession, Event event) throws IOException {
         Configuration configuration = new Configuration();
-        configuration.set("fs.defaultFS", "hdfs://localhost:9000");
+        configuration.set("fs.defaultFS", HDFS_URL);
         configuration.set("fs.hdfs.impl", DistributedFileSystem.class.getName());
         configuration.set("dfs.client.block.write.replace-datanode-on-failure.policy", "NEVER");
         configuration.set("dfs.client.block.write.replace-datanode-on-failure.enable", "true");
@@ -112,7 +114,7 @@ public class Main {
         // Create a path
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String fileName = String.format("hdfs://localhost:9000/%s-data.parquet", now.format(formatter));
+        String fileName = String.format("%s/%s-data.parquet", HDFS_URL, now.format(formatter));
 
         Path hdfsWritePath = new Path(fileName);
 
