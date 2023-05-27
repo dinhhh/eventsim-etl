@@ -52,7 +52,12 @@ bin/eventsim --config examples/example-config.json --from 365 --nusers 1000 --gr
 Go to Hadoop Overview Web interface to view created file
 
 # Note
+Export JAVA_HOME path
 ```agsl
 export JAVA_HOME=/usr/lib/jvm/OpenJDK8U-jdk_x64_linux_hotspot_8u372b07/jdk8u372-b07
 ```
-- Change
+
+Delete all messages in topic
+```agsl
+bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic eventsim
+```
